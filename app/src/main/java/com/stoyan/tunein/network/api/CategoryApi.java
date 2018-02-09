@@ -11,7 +11,7 @@ import com.google.gson.annotations.SerializedName;
  * "URL": "http://opml.radiotime.com/Browse.ashx?c=local",
  * "key": "local"
  */
-public class Category {
+public class CategoryApi {
 
     public String element;
     public String type;

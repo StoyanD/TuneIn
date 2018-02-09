@@ -10,5 +10,5 @@ import java.util.List;
 
 public class CategoryList {
     @SerializedName("body")
-   public List<Category> categoryList;
+   public List<CategoryApi> categoryList;
 }

@@ -13,6 +13,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 import retrofit2.Converter;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
@@ -28,6 +29,7 @@ public class NetworkModule {
                 .baseUrl(NetworkConstants.TUNE_IN_BASE_URL)
                 .client(okHttpClient)
                 .addConverterFactory(converter)
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
     }
 

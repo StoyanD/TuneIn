@@ -2,7 +2,7 @@ package com.stoyan.tunein.network.interfaces;
 
 import com.stoyan.tunein.network.api.CategoryList;
 
-import retrofit2.Call;
+import io.reactivex.Flowable;
 import retrofit2.http.GET;
 
 /**
@@ -11,5 +11,5 @@ import retrofit2.http.GET;
 
 public interface TuneInInterface {
     @GET("Browse.ashx")
-    Call<CategoryList> getCategoriesList();
+    Flowable<CategoryList> getCategoriesList();
 }
