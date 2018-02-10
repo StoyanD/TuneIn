@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.stoyan.tunein.activities.MainActivity;
 import com.stoyan.tunein.adapters.CategoriesAdapter;
 import com.stoyan.tunein.app.TuneInApp;
 import com.stoyan.tunein.databinding.FragmentCategoriesBinding;
@@ -27,15 +28,15 @@ import io.reactivex.schedulers.Schedulers;
  * Created by stoyan on 2/9/18.
  */
 
-public class CategoriesFrag extends BaseFragment {
-    private static final String TAG = CategoriesFrag.class.getSimpleName();
+public class CategoriesFragment extends BaseFragment implements CategoriesAdapter.OnCategoryClick {
+    private static final String TAG = CategoriesFragment.class.getSimpleName();
     @Inject
     TuneInInterface api;
 
     FragmentCategoriesBinding binding;
 
-    public static CategoriesFrag newInstance() {
-        return new CategoriesFrag();
+    public static CategoriesFragment newInstance() {
+        return new CategoriesFragment();
     }
 
     @Override
@@ -57,6 +58,14 @@ public class CategoriesFrag extends BaseFragment {
                 }));
     }
 
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
+        binding = FragmentCategoriesBinding.inflate(inflater, container, false);
+        return binding.getRoot();
+    }
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -68,15 +77,14 @@ public class CategoriesFrag extends BaseFragment {
 
     }
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        super.onCreateView(inflater, container, savedInstanceState);
-        binding = FragmentCategoriesBinding.inflate(inflater, container, false);
-        return binding.getRoot();
+    public void onCategoryClick(String url) {
+        ((MainActivity)getActivity()).addCategoryFrag(url);
     }
 
     private void initAdapter(List<CategoryApi> categoryList) {
-        binding.categoriesRv.setAdapter( new CategoriesAdapter(categoryList));
+        binding.categoriesRv.setAdapter( new CategoriesAdapter(this, categoryList));
     }
+
+
 }

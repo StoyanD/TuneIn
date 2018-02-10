@@ -6,7 +6,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.stoyan.tunein.R;
-import com.stoyan.tunein.fragments.CategoriesFrag;
+import com.stoyan.tunein.fragments.CategoriesFragment;
+import com.stoyan.tunein.fragments.CategoryFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -15,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         if (savedInstanceState == null) {
-            changeFragment(CategoriesFrag.newInstance());
+            changeFragment(CategoriesFragment.newInstance());
         }
     }
 
@@ -27,6 +28,10 @@ public class MainActivity extends AppCompatActivity {
             //If last fragment, finish the activity
             finish();
         }
+    }
+
+    public void addCategoryFrag(String categoryUrl){
+        changeFragment(CategoryFragment.newInstance(categoryUrl));
     }
 
     private void changeFragment(Fragment fragment) {

@@ -1,7 +1,8 @@
 package com.stoyan.tunein.app;
 
 import com.stoyan.tunein.adapters.CategoriesAdapter;
-import com.stoyan.tunein.fragments.CategoriesFrag;
+import com.stoyan.tunein.fragments.CategoriesFragment;
+import com.stoyan.tunein.fragments.CategoryFragment;
 import com.stoyan.tunein.network.NetworkModule;
 import com.stoyan.tunein.network.TuneInApiModule;
 
@@ -16,6 +17,7 @@ import dagger.Component;
 @Component(modules = {AppModule.class, NetworkModule.class, TuneInApiModule.class})
 public interface AppComponent {
 
-    void inject(CategoriesFrag frag);
+    void inject(CategoriesFragment frag);
+    void inject(CategoryFragment frag);
     void inject(CategoriesAdapter.ViewHolder holder);
 }
