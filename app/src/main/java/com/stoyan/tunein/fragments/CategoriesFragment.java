@@ -11,9 +11,9 @@ import android.view.ViewGroup;
 import com.stoyan.tunein.adapters.CategoriesAdapter;
 import com.stoyan.tunein.app.TuneInApp;
 import com.stoyan.tunein.databinding.FragmentCategoriesBinding;
-import com.stoyan.tunein.network.api.AudioResponseApi;
 import com.stoyan.tunein.network.api.CategoryApi;
 import com.stoyan.tunein.network.api.CategoryList;
+import com.stoyan.tunein.network.api.OutlineWithChildrenApiResponse;
 import com.stoyan.tunein.network.interfaces.TuneInInterface;
 
 import java.util.List;
@@ -79,13 +79,13 @@ public class CategoriesFragment extends BaseFragment implements CategoriesAdapte
 
     @Override
     public void onCategoryClick(String url) {
-        compositeDisposable.add(api.getLocalList().subscribeOn(Schedulers.io())
+        compositeDisposable.add(api.getPodcastsList().subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<AudioResponseApi>() {
+                .subscribe(new Consumer<OutlineWithChildrenApiResponse>() {
                     @Override
-                    public void accept(AudioResponseApi audioResponseApi) throws Exception {
+                    public void accept(OutlineWithChildrenApiResponse response) throws Exception {
 //                        initAdapter(categoryList.categoryList);
-                        audioResponseApi.audioParentApi.get(0).audioList.get(0);
+                        response.outlineWithChildrenApis.get(0);
                     }
                 }));
 //        ((MainActivity)getActivity()).addCategoryFrag(url);
