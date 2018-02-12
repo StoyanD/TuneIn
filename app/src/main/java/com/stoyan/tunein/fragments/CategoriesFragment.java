@@ -8,10 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.stoyan.tunein.activities.MainActivity;
 import com.stoyan.tunein.adapters.CategoriesAdapter;
 import com.stoyan.tunein.app.TuneInApp;
 import com.stoyan.tunein.databinding.FragmentCategoriesBinding;
+import com.stoyan.tunein.network.api.AudioResponseApi;
 import com.stoyan.tunein.network.api.CategoryApi;
 import com.stoyan.tunein.network.api.CategoryList;
 import com.stoyan.tunein.network.interfaces.TuneInInterface;
@@ -79,7 +79,16 @@ public class CategoriesFragment extends BaseFragment implements CategoriesAdapte
 
     @Override
     public void onCategoryClick(String url) {
-        ((MainActivity)getActivity()).addCategoryFrag(url);
+        compositeDisposable.add(api.getLocalList().subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<AudioResponseApi>() {
+                    @Override
+                    public void accept(AudioResponseApi audioResponseApi) throws Exception {
+//                        initAdapter(categoryList.categoryList);
+                        audioResponseApi.audioParentApi.get(0).audioList.get(0);
+                    }
+                }));
+//        ((MainActivity)getActivity()).addCategoryFrag(url);
     }
 
     private void initAdapter(List<CategoryApi> categoryList) {

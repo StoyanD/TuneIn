@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.stoyan.tunein.R;
 import com.stoyan.tunein.fragments.CategoriesFragment;
-import com.stoyan.tunein.fragments.CategoryFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,7 +30,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void addCategoryFrag(String categoryUrl){
-        changeFragment(CategoryFragment.newInstance(categoryUrl));
+
+//        changeFragment(CategoryFragment.newInstance(categoryUrl));
     }
 
     private void changeFragment(Fragment fragment) {
