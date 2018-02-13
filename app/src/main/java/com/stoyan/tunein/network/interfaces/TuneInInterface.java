@@ -17,7 +17,7 @@ public interface TuneInInterface {
     Flowable<SubCategoryApiResponse> getMusicList(@Query("c") String category);
 
     @GET("Tune.ashx?c=pbrowse")
-    Flowable<SubCategoryApiResponse> getAudioById(@Query("id") String category);
+    Flowable<AudioResponseApi> getAudioById(@Query("id") String category);
 
     @GET("Browse.ashx")
     Flowable<AudioResponseApi> getSubCatById(@Query("id") String guideId);//do subs

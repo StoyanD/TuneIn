@@ -81,7 +81,7 @@ public class CategoryFragment extends BaseFragment implements MusicGenreAdapter.
 
     @Override
     public void onCategoryClick(String id) {
-        ((MainActivity)getActivity()).addSubCategoryFrag(id);
+        ((MainActivity)getActivity()).addSubCategoryFrag(id, false);
     }
 
     private void initAdapter(List<SubCategoryApi> subCategoryApis) {

@@ -57,4 +57,9 @@ public class AudioApi {
     public AudioApi(boolean isFake) {
         this.isFake = isFake;
     }
+
+    public boolean isAudio() {
+        return type != null && "audio".equalsIgnoreCase((type));
+    }
+
 }

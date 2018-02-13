@@ -4,7 +4,9 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.jakewharton.rxbinding2.view.RxView;
 import com.squareup.picasso.Picasso;
 import com.stoyan.tunein.app.TuneInApp;
 import com.stoyan.tunein.databinding.ViewAdapterItemBinding;
@@ -16,6 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
+
+import io.reactivex.functions.Consumer;
 
 /**
  * Created by stoyan on 2/12/18.
@@ -103,14 +107,17 @@ public class MusicAdapter extends  RecyclerView.Adapter<RecyclerView.ViewHolder>
         private void bind(final AudioApi api) {
             mViewBinding.setAudio(api);
             Picasso.with(context).load(api.imageUrl).into(mViewBinding.itemIv);
-//            RxView.clicks(mViewBinding.categoryName)
-//                    .subscribe(new Consumer<Object>() {
-//                        @Override
-//                        public void accept(Object o) throws Exception {
-////                            Toast.makeText(context, "RxView.clicks", Toast.LENGTH_SHORT).show();
-//                            onCategoryClick.onCategoryClick(api.key);
-//                        }
-//                    });
+            RxView.clicks(mViewBinding.getRoot())
+                    .subscribe(new Consumer<Object>() {
+                        @Override
+                        public void accept(Object o) throws Exception {
+                            if(api.isAudio()){
+                                Toast.makeText(context, "Playing Audio", Toast.LENGTH_SHORT).show();
+                            }else if(api.id != null){ //fetch url "http://opml.radiotime.com/Tune.ashx?c=pbrowse&id=####"
+                                onCategoryClick.onCategoryClick(api.id);
+                            }
+                        }
+                    });
         }
     }
 

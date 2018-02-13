@@ -30,8 +30,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void addSubCategoryFrag(String categoryId){
-        changeFragment(SubCategoryFragment.newInstance(categoryId));
+    public void addSubCategoryFrag(String categoryId, boolean isTuneUrl){
+        changeFragment(SubCategoryFragment.newInstance(categoryId, isTuneUrl));
     }
 
     private void changeFragment(Fragment fragment) {

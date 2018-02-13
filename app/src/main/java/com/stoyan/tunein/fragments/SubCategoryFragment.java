@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.stoyan.tunein.activities.MainActivity;
 import com.stoyan.tunein.adapters.MusicAdapter;
 import com.stoyan.tunein.adapters.MusicGenreAdapter;
 import com.stoyan.tunein.app.TuneInApp;
@@ -32,17 +33,20 @@ import io.reactivex.schedulers.Schedulers;
 
 public class SubCategoryFragment extends BaseFragment implements MusicGenreAdapter.OnCategoryClick {
     public static final String ID_KEY = "id_key";
+    public static final String TUNE_KEY = "is_tune_url";
 
     private String subKey;
+    private boolean isTuneUrl;
 
     @Inject
     TuneInInterface api;
 
     FragmentSubCategoryBinding binding;
 
-    public static SubCategoryFragment newInstance(String id) {
+    public static SubCategoryFragment newInstance(String id, boolean isTuneUrl) {
         Bundle args = new Bundle();
         args.putSerializable(SubCategoryFragment.ID_KEY, id);
+        args.putSerializable(SubCategoryFragment.TUNE_KEY, isTuneUrl);
         SubCategoryFragment fragment = new SubCategoryFragment();
         fragment.setArguments(args);
         return fragment;
@@ -53,6 +57,7 @@ public class SubCategoryFragment extends BaseFragment implements MusicGenreAdapt
         super.setArguments(args);
         if(args != null){
             subKey = args.getString(SubCategoryFragment.ID_KEY);
+            isTuneUrl = args.getBoolean(SubCategoryFragment.TUNE_KEY);
         }
 
         if(subKey == null){
@@ -77,14 +82,27 @@ public class SubCategoryFragment extends BaseFragment implements MusicGenreAdapt
     public void onResume() {
         super.onResume();
 
-        compositeDisposable.add(api.getSubCatById(subKey).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<AudioResponseApi>() {
-                    @Override
-                    public void accept(AudioResponseApi response) throws Exception {
-                        initAdapter(response.audioParentApi);
-                    }
-                }));
+        if(isTuneUrl){
+            compositeDisposable.add(api.getAudioById(subKey).subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Consumer<AudioResponseApi>() {
+                        @Override
+                        public void accept(AudioResponseApi response) throws Exception {
+                            response.audioParentApi.get(0);
+                            initAdapter(response.audioParentApi);
+                        }
+                    }));
+        }else{
+            compositeDisposable.add(api.getSubCatById(subKey).subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Consumer<AudioResponseApi>() {
+                        @Override
+                        public void accept(AudioResponseApi response) throws Exception {
+                            initAdapter(response.audioParentApi);
+                        }
+                    }));
+        }
+
     }
 
     @Nullable
@@ -116,6 +134,6 @@ public class SubCategoryFragment extends BaseFragment implements MusicGenreAdapt
 
     @Override
     public void onCategoryClick(String id) {
-
+        ((MainActivity)getActivity()).addSubCategoryFrag(id, true);
     }
 }
