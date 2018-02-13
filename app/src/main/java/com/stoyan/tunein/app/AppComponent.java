@@ -1,8 +1,9 @@
 package com.stoyan.tunein.app;
 
-import com.stoyan.tunein.adapters.CategoriesAdapter;
-import com.stoyan.tunein.fragments.CategoriesFragment;
+import com.stoyan.tunein.adapters.MusicAdapter;
+import com.stoyan.tunein.adapters.MusicGenreAdapter;
 import com.stoyan.tunein.fragments.CategoryFragment;
+import com.stoyan.tunein.fragments.SubCategoryFragment;
 import com.stoyan.tunein.network.NetworkModule;
 import com.stoyan.tunein.network.TuneInApiModule;
 
@@ -17,7 +18,8 @@ import dagger.Component;
 @Component(modules = {AppModule.class, NetworkModule.class, TuneInApiModule.class})
 public interface AppComponent {
 
-    void inject(CategoriesFragment frag);
     void inject(CategoryFragment frag);
-    void inject(CategoriesAdapter.ViewHolder holder);
+    void inject(SubCategoryFragment frag);
+    void inject(MusicGenreAdapter.ViewHolder holder);
+    void inject(MusicAdapter.ItemViewHolder holder);
 }

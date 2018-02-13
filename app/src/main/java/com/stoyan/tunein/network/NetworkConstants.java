@@ -6,4 +6,5 @@ package com.stoyan.tunein.network;
 
 public class NetworkConstants {
     public static final String TUNE_IN_BASE_URL = "http://opml.radiotime.com/";
+    public static final String TUNE_IN_MUSIC_KEY = "music";
 }

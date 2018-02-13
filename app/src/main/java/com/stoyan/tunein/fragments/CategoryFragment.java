@@ -8,37 +8,56 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.stoyan.tunein.activities.MainActivity;
+import com.stoyan.tunein.adapters.MusicGenreAdapter;
 import com.stoyan.tunein.app.TuneInApp;
 import com.stoyan.tunein.databinding.FragmentCategoryBinding;
+import com.stoyan.tunein.network.api.SubCategoryApi;
+import com.stoyan.tunein.network.api.SubCategoryApiResponse;
 import com.stoyan.tunein.network.interfaces.TuneInInterface;
 
+import java.util.List;
+
 import javax.inject.Inject;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
+
+import static com.stoyan.tunein.network.NetworkConstants.TUNE_IN_MUSIC_KEY;
 
 /**
  * Created by stoyan on 2/9/18.
  */
 
-public class CategoryFragment extends BaseFragment {
+public class CategoryFragment extends BaseFragment implements MusicGenreAdapter.OnCategoryClick{
 
-    private String url;
     @Inject
     TuneInInterface api;
 
     FragmentCategoryBinding binding;
-    public static CategoriesFragment newInstance(String url) {
-        return new CategoriesFragment();
-    }
 
-    @Override
-    public void setArguments(Bundle args) {
-        super.setArguments(args);
-
+    public static CategoryFragment newInstance() {
+        return new CategoryFragment();
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         TuneInApp.appComponent.inject(this);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        compositeDisposable.add(api.getMusicList(TUNE_IN_MUSIC_KEY).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<SubCategoryApiResponse>() {
+                    @Override
+                    public void accept(SubCategoryApiResponse subCategoryApiResponse) throws Exception {
+                        initAdapter(subCategoryApiResponse.musicCategoryApiList);
+                    }
+                }));
     }
 
     @Nullable
@@ -58,5 +77,14 @@ public class CategoryFragment extends BaseFragment {
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         rv.setLayoutManager(manager);
 
+    }
+
+    @Override
+    public void onCategoryClick(String id) {
+        ((MainActivity)getActivity()).addSubCategoryFrag(id);
+    }
+
+    private void initAdapter(List<SubCategoryApi> subCategoryApis) {
+        binding.categoriesRv.setAdapter( new MusicGenreAdapter(this, subCategoryApis));
     }
 }

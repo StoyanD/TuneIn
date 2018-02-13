@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.stoyan.tunein.app.TuneInApp;
 import com.stoyan.tunein.databinding.ViewCategoryListItemBinding;
-import com.stoyan.tunein.network.api.CategoryApi;
+import com.stoyan.tunein.network.api.SubCategoryApi;
 
 import java.util.List;
 
@@ -20,17 +20,17 @@ import io.reactivex.functions.Consumer;
  * Created by stoyan on 2/9/18.
  */
 
-public class CategoriesAdapter extends  RecyclerView.Adapter<CategoriesAdapter.ViewHolder> {
+public class MusicGenreAdapter extends  RecyclerView.Adapter<MusicGenreAdapter.ViewHolder> {
     private OnCategoryClick onCategoryClick;
-    List<CategoryApi> categoryList;
+    private List<SubCategoryApi> categoryList;
 
     public interface OnCategoryClick {
-        void onCategoryClick(String url);
+        void onCategoryClick(String id);
     }
 
-    public CategoriesAdapter(OnCategoryClick onCategoryClick, List<CategoryApi> categoryList) {
+    public MusicGenreAdapter(OnCategoryClick onCategoryClick, List<SubCategoryApi> subCategoryApis) {
         this.onCategoryClick = onCategoryClick;
-        this.categoryList = categoryList;
+        this.categoryList = subCategoryApis;
     }
 
     @Override
@@ -65,7 +65,7 @@ public class CategoriesAdapter extends  RecyclerView.Adapter<CategoriesAdapter.V
             TuneInApp.appComponent.inject(this);
         }
 
-        private void bind(final CategoryApi api) {
+        private void bind(final SubCategoryApi api) {
             mViewBinding.setCategory(api);
 //            Picasso.with(context).load(api.coverImgUrl).into(mViewBinding.listCoverImage);
             RxView.clicks(mViewBinding.categoryName)
@@ -73,7 +73,7 @@ public class CategoriesAdapter extends  RecyclerView.Adapter<CategoriesAdapter.V
                         @Override
                         public void accept(Object o) throws Exception {
 //                            Toast.makeText(context, "RxView.clicks", Toast.LENGTH_SHORT).show();
-                            onCategoryClick.onCategoryClick(api.url);
+                            onCategoryClick.onCategoryClick(api.key);
                         }
                     });
         }
