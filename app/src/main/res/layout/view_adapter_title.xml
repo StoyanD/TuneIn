@@ -6,13 +6,13 @@
     <data>
 
         <variable
-            name="category"
-            type="com.stoyan.tunein.network.api.SubCategoryApi" />
+            name="audio"
+            type="com.stoyan.tunein.network.api.AudioApi" />
     </data>
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/adapter_text"
@@ -22,8 +22,10 @@
             android:layout_marginTop="8dp"
             android:textAlignment="center"
             android:textSize="24sp"
+            android:text="@{audio.name}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            android:textColor="@color/colorPrimary"
             tools:text="Some Category Title" />
 
     </android.support.constraint.ConstraintLayout>

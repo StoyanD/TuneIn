@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import com.squareup.picasso.Picasso;
 import com.stoyan.tunein.app.TuneInApp;
 import com.stoyan.tunein.databinding.ViewAdapterItemBinding;
 import com.stoyan.tunein.databinding.ViewAdapterTitleBinding;
@@ -79,7 +80,9 @@ public class MusicAdapter extends  RecyclerView.Adapter<RecyclerView.ViewHolder>
     private void mapApi(List<AudioParentApi> audioParentApi) {
         audioApi = new ArrayList<>();
         for(AudioParentApi parentApi : audioParentApi){
-            audioApi.add(new AudioApi(true));
+            AudioApi a = new AudioApi(true);
+            a.name = parentApi.name;
+            audioApi.add(a);
             audioApi.addAll(parentApi.audioList);
         }
     }
@@ -98,8 +101,8 @@ public class MusicAdapter extends  RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
 
         private void bind(final AudioApi api) {
-//            mViewBinding.setCategory(api);
-////            Picasso.with(context).load(api.coverImgUrl).into(mViewBinding.listCoverImage);
+            mViewBinding.setAudio(api);
+            Picasso.with(context).load(api.imageUrl).into(mViewBinding.itemIv);
 //            RxView.clicks(mViewBinding.categoryName)
 //                    .subscribe(new Consumer<Object>() {
 //                        @Override
@@ -112,14 +115,14 @@ public class MusicAdapter extends  RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     public static class TitleViewHolder extends RecyclerView.ViewHolder {
+        private final ViewAdapterTitleBinding mViewBinding;
+
         public TitleViewHolder(ViewAdapterTitleBinding viewBinding) {
             super(viewBinding.getRoot());
-//            mViewBinding = viewBinding;
-//            this.onCategoryClick = onCategoryClick;
-//            TuneInApp.appComponent.inject(this);
+            mViewBinding = viewBinding;
         }
         private void bind(final AudioApi api) {
-
+            mViewBinding.setAudio(api);
         }
     }
 }

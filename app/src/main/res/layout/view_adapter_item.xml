@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="category"
-            type="com.stoyan.tunein.network.api.SubCategoryApi" />
+            name="audio"
+            type="com.stoyan.tunein.network.api.AudioApi" />
     </data>
 
     <android.support.constraint.ConstraintLayout
@@ -28,6 +28,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="8dp"
             android:textSize="20sp"
+            android:text="@{audio.name}"
             app:layout_constraintBottom_toBottomOf="@+id/item_iv"
             app:layout_constraintStart_toEndOf="@+id/item_iv"
             app:layout_constraintTop_toTopOf="@+id/item_iv"
