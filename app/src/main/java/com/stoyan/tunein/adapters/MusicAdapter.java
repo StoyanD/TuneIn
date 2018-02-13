@@ -25,7 +25,7 @@ import io.reactivex.functions.Consumer;
  * Created by stoyan on 2/12/18.
  */
 
-public class MusicAdapter extends  RecyclerView.Adapter<RecyclerView.ViewHolder>  {
+public class MusicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final int FAKE_RETURN_VAL = 1;
     private MusicGenreAdapter.OnCategoryClick onCategoryClick;
     private List<AudioApi> audioApi;
@@ -61,10 +61,10 @@ public class MusicAdapter extends  RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if(audioApi.get(position).isFake){
-            ((TitleViewHolder)holder).bind(audioApi.get(position));
-        }else{
-            ((ItemViewHolder)holder).bind(audioApi.get(position));
+        if (audioApi.get(position).isFake) {
+            ((TitleViewHolder) holder).bind(audioApi.get(position));
+        } else {
+            ((ItemViewHolder) holder).bind(audioApi.get(position));
         }
     }
 
@@ -83,11 +83,13 @@ public class MusicAdapter extends  RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     private void mapApi(List<AudioParentApi> audioParentApi) {
         audioApi = new ArrayList<>();
-        for(AudioParentApi parentApi : audioParentApi){
+        for (AudioParentApi parentApi : audioParentApi) {
             AudioApi a = new AudioApi(true);
             a.name = parentApi.name;
             audioApi.add(a);
-            audioApi.addAll(parentApi.audioList);
+            if (parentApi.audioList != null) {
+                audioApi.addAll(parentApi.audioList);
+            }
         }
     }
 
@@ -111,9 +113,9 @@ public class MusicAdapter extends  RecyclerView.Adapter<RecyclerView.ViewHolder>
                     .subscribe(new Consumer<Object>() {
                         @Override
                         public void accept(Object o) throws Exception {
-                            if(api.isAudio()){
-                                Toast.makeText(context, "Playing Audio", Toast.LENGTH_SHORT).show();
-                            }else if(api.id != null){ //fetch url "http://opml.radiotime.com/Tune.ashx?c=pbrowse&id=####"
+                            if (api.isAudio()) {
+                                Toast.makeText(context, "Playing Audio (Not really ;)", Toast.LENGTH_SHORT).show();
+                            } else if (api.id != null) { //fetch url "http://opml.radiotime.com/Tune.ashx?c=pbrowse&id=####"
                                 onCategoryClick.onCategoryClick(api.id);
                             }
                         }
@@ -128,6 +130,7 @@ public class MusicAdapter extends  RecyclerView.Adapter<RecyclerView.ViewHolder>
             super(viewBinding.getRoot());
             mViewBinding = viewBinding;
         }
+
         private void bind(final AudioApi api) {
             mViewBinding.setAudio(api);
         }

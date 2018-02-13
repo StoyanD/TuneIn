@@ -2,6 +2,7 @@ package com.stoyan.tunein.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -76,6 +77,10 @@ public class CategoryFragment extends BaseFragment implements MusicGenreAdapter.
         rv.setHasFixedSize(true);
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         rv.setLayoutManager(manager);
+        rv.addItemDecoration( new DividerItemDecoration(
+                rv.getContext(),
+                manager.getOrientation()
+        ));
 
     }
 
