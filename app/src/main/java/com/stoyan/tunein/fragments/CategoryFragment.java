@@ -31,8 +31,7 @@ import static com.stoyan.tunein.network.NetworkConstants.TUNE_IN_MUSIC_KEY;
  * Created by stoyan on 2/9/18.
  */
 
-public class CategoryFragment extends BaseFragment implements MusicGenreAdapter.OnCategoryClick{
-
+public class CategoryFragment extends BaseFragment implements MusicGenreAdapter.OnCategoryClick {
     @Inject
     TuneInInterface api;
 
@@ -77,7 +76,7 @@ public class CategoryFragment extends BaseFragment implements MusicGenreAdapter.
         rv.setHasFixedSize(true);
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         rv.setLayoutManager(manager);
-        rv.addItemDecoration( new DividerItemDecoration(
+        rv.addItemDecoration(new DividerItemDecoration(
                 rv.getContext(),
                 manager.getOrientation()
         ));
@@ -86,10 +85,10 @@ public class CategoryFragment extends BaseFragment implements MusicGenreAdapter.
 
     @Override
     public void onCategoryClick(String id) {
-        ((MainActivity)getActivity()).addSubCategoryFrag(id, false);
+        ((MainActivity) getActivity()).addSubCategoryFrag(id, false);
     }
 
     private void initAdapter(List<SubCategoryApi> subCategoryApis) {
-        binding.categoriesRv.setAdapter( new MusicGenreAdapter(this, subCategoryApis));
+        binding.categoriesRv.setAdapter(new MusicGenreAdapter(this, subCategoryApis));
     }
 }

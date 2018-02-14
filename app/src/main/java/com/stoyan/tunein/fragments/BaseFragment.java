@@ -11,6 +11,8 @@ import io.reactivex.disposables.CompositeDisposable;
  * Created by stoyan on 2/9/18.
  */
 public class BaseFragment extends Fragment {
+    public static final String ID_KEY = "id_key";
+
     protected CompositeDisposable compositeDisposable;
 
     @Override

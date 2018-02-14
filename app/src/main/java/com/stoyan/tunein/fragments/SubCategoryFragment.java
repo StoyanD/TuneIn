@@ -32,7 +32,6 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 public class SubCategoryFragment extends BaseFragment implements MusicGenreAdapter.OnCategoryClick {
-    public static final String ID_KEY = "id_key";
     public static final String TUNE_KEY = "is_tune_url";
 
     private String subKey;
