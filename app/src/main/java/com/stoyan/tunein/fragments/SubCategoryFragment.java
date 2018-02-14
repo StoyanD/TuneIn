@@ -54,14 +54,7 @@ public class SubCategoryFragment extends BaseFragment implements MusicGenreAdapt
     @Override
     public void setArguments(Bundle args) {
         super.setArguments(args);
-        if(args != null){
-            subKey = args.getString(SubCategoryFragment.ID_KEY);
-            isTuneUrl = args.getBoolean(SubCategoryFragment.TUNE_KEY);
-        }
-
-        if(subKey == null){
-            Toast.makeText(getActivity(), "Something went wrong, subKey not set", Toast.LENGTH_LONG).show();
-        }
+        loadArgs(args);
 
     }
 
@@ -73,7 +66,15 @@ public class SubCategoryFragment extends BaseFragment implements MusicGenreAdapt
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
+        outState.putString(ID_KEY, subKey);
+        outState.putBoolean(TUNE_KEY, isTuneUrl);
         super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onViewStateRestored(Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        loadArgs(savedInstanceState);
     }
 
     @Override
@@ -133,5 +134,16 @@ public class SubCategoryFragment extends BaseFragment implements MusicGenreAdapt
     @Override
     public void onCategoryClick(String id) {
         ((MainActivity)getActivity()).addSubCategoryFrag(id, true);
+    }
+
+    private void loadArgs(Bundle args) {
+        if(args != null){
+            subKey = args.getString(SubCategoryFragment.ID_KEY);
+            isTuneUrl = args.getBoolean(SubCategoryFragment.TUNE_KEY);
+        }
+
+        if(subKey == null){
+            Toast.makeText(getActivity(), "Something went wrong, subKey not set", Toast.LENGTH_LONG).show();
+        }
     }
 }
