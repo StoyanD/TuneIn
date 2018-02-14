@@ -24,22 +24,6 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class AudioApi {
-    enum Type {
-        audio("audio"), link("link"), fake("fake");
-        private String val;
-        Type(String str){
-            val = str;
-        }
-
-        public boolean isAudio(){
-            return val.equalsIgnoreCase("audio");
-        }
-
-        public boolean isFake(){
-            return val.equalsIgnoreCase("fake");
-        }
-    }
-
     public String type;
     @SerializedName("text")
     public String name;

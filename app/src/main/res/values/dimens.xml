@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="view_adapter_item_sub_text_width">200dp</dimen>
+    <dimen name="view_adapter_item_sub_text_size">14sp</dimen>
+    <dimen name="view_adapter_item_text_size">20sp</dimen>
+    <dimen name="view_adapter_item_text_height">24dp</dimen>
+    <dimen name="view_adapter_item_iv_size">100dp</dimen>
+    <dimen name="view_adapter_title_text_size">24sp</dimen>
+    <dimen name="view_adapter_list_item_text_size">20sp</dimen>
+</resources>

@@ -16,19 +16,19 @@
 
         <ImageView
             android:id="@+id/item_iv"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="@dimen/view_adapter_item_iv_size"
+            android:layout_height="@dimen/view_adapter_item_iv_size"
             tools:src="@drawable/ic_launcher_background" />
 
         <TextView
             android:id="@+id/text"
             android:layout_width="wrap_content"
-            android:layout_height="24dp"
+            android:layout_height="@dimen/view_adapter_item_text_height"
             android:layout_marginBottom="8dp"
             android:layout_marginStart="24dp"
             android:layout_marginTop="8dp"
             android:text="@{audio.name}"
-            android:textSize="20sp"
+            android:textSize="@dimen/view_adapter_item_text_size"
             app:layout_constraintBottom_toBottomOf="@+id/item_iv"
             app:layout_constraintStart_toEndOf="@+id/item_iv"
             app:layout_constraintTop_toTopOf="@+id/item_iv"
@@ -43,9 +43,9 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:maxLines="1"
-            android:maxWidth="200dp"
+            android:maxWidth="@dimen/view_adapter_item_sub_text_width"
             android:text="@{audio.subText}"
-            android:textSize="14sp"
+            android:textSize="@dimen/view_adapter_item_sub_text_size"
             android:textAlignment="center"
             app:layout_constraintBottom_toBottomOf="@+id/item_iv"
             app:layout_constraintEnd_toEndOf="parent"

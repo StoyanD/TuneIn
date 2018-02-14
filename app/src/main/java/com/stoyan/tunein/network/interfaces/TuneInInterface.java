@@ -20,5 +20,5 @@ public interface TuneInInterface {
     Flowable<AudioResponseApi> getAudioById(@Query("id") String category);
 
     @GET("Browse.ashx")
-    Flowable<AudioResponseApi> getSubCatById(@Query("id") String guideId);//do subs
+    Flowable<AudioResponseApi> getSubCatById(@Query("id") String guideId);
 }
