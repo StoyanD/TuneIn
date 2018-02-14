@@ -24,7 +24,6 @@ import io.reactivex.functions.Consumer;
 /**
  * Created by stoyan on 2/12/18.
  */
-
 public class MusicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final int FAKE_RETURN_VAL = 1;
     private MusicGenreAdapter.OnCategoryClick onCategoryClick;
@@ -81,6 +80,11 @@ public class MusicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         return -1;
     }
 
+    /**
+     * Map the api into a single list with the sub categories appearing
+     * as fake {@link AudioApi}
+     * @param audioParentApi
+     */
     private void mapApi(List<AudioParentApi> audioParentApi) {
         audioApi = new ArrayList<>();
         for (AudioParentApi parentApi : audioParentApi) {
@@ -93,6 +97,9 @@ public class MusicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
     }
 
+    /**
+     * View holder for the items
+     */
     public static class ItemViewHolder extends RecyclerView.ViewHolder {
         private ViewAdapterItemBinding mViewBinding;
         private MusicGenreAdapter.OnCategoryClick onCategoryClick;
@@ -123,6 +130,9 @@ public class MusicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
     }
 
+    /**
+     * View holder for the sub category titles
+     */
     public static class TitleViewHolder extends RecyclerView.ViewHolder {
         private final ViewAdapterTitleBinding mViewBinding;
 

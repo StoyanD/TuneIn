@@ -61,7 +61,7 @@ public class SubCategoryFragment extends BaseFragment implements MusicGenreAdapt
         }
 
         if(subKey == null){
-            Toast.makeText(getActivity(), "Something went wrong, subKey not set", Toast.LENGTH_LONG);
+            Toast.makeText(getActivity(), "Something went wrong, subKey not set", Toast.LENGTH_LONG).show();
         }
 
     }
@@ -75,7 +75,6 @@ public class SubCategoryFragment extends BaseFragment implements MusicGenreAdapt
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        //todo
     }
 
     @Override

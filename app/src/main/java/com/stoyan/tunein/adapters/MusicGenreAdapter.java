@@ -67,12 +67,10 @@ public class MusicGenreAdapter extends  RecyclerView.Adapter<MusicGenreAdapter.V
 
         private void bind(final SubCategoryApi api) {
             mViewBinding.setCategory(api);
-//            Picasso.with(context).load(api.coverImgUrl).into(mViewBinding.listCoverImage);
             RxView.clicks(mViewBinding.categoryName)
                     .subscribe(new Consumer<Object>() {
                         @Override
                         public void accept(Object o) throws Exception {
-//                            Toast.makeText(context, "RxView.clicks", Toast.LENGTH_SHORT).show();
                             onCategoryClick.onCategoryClick(api.key);
                         }
                     });
